@@ -1,18 +1,9 @@
-﻿string name = "Ewa";
-char sex = 'f';
-int age = 30;
+﻿var number = 2456743535;
 
-if (sex == 'f' && age < 30)
-{
-    Console.WriteLine("Kobieta poniżej 30 lat");
-}
+string NumberToString = number.ToString();
+char[] TabOfNumbers = NumberToString.ToArray();
 
-if (name == "Ewa" && age == 30)
+for (int i=0; i<TabOfNumbers.Length; i++)
 {
-    Console.WriteLine("Ewa, lat 30");
-}
-
-if (sex == 'm' && age < 18)
-{
-    Console.WriteLine("Niepełnoletni mężczyzna");
+    Console.WriteLine(TabOfNumbers[i]);
 }
