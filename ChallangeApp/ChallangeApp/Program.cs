@@ -1,56 +1,74 @@
-﻿var number = 2456743535;
+﻿using ChallangeApp;
 
-string NumberToString = number.ToString();
-char[] TabOfDigits = NumberToString.ToArray();
+List<Employee>  employees = new List<Employee>();
 
-List<int> counter = new List<int>();
+employees.Add(new Employee("Marta", "Janik", 20));
+employees.Add(new Employee("Jan", "Toperz", 21));
+employees.Add(new Employee("Ornakdus", "Zitgard", 120));
 
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
-counter.Add(0);
+employees[0].AddGrade(5);
+employees[1].AddGrade(2);
+employees[2].AddGrade(8);
 
-foreach (char digit in TabOfDigits)
+employees[0].AddGrade(9);
+employees[1].AddGrade(10);
+employees[2].AddGrade(10);
+
+employees[0].AddGrade(2);
+employees[1].AddGrade(6);
+employees[2].AddGrade(7);
+
+employees[0].AddGrade(6);
+employees[1].AddGrade(9);
+employees[2].AddGrade(4);
+
+employees[0].AddGrade(10);
+employees[1].AddGrade(1);
+employees[2].AddGrade(3);
+
+int Score =0;
+int TopRated = 0;
+
+for (int i = 0; i < employees.Count; i++)
 {
-    if (digit == '0')
-        counter[0]++;
-
-    if (digit == '1')
-        counter[1]++;
-
-    if (digit == '2')
-        counter[2]++;
-
-    if (digit == '3')
-        counter[3]++;
-
-    if (digit == '4')
-        counter[4]++;
-
-    if (digit == '5')
-        counter[5]++;
-
-    if (digit == '6')
-        counter[6]++;
-
-    if (digit == '7')
-        counter[7]++;
-
-    if (digit == '8')
-        counter[8]++;
-
-    if (digit == '9')
-        counter[9]++;
+    if (employees[i].ScoreSum >= Score)
+    {
+        Score= employees[i].ScoreSum;
+        TopRated = i;
+    }
 }
 
-for (int i = 0; i<counter.Count; i++)
+List<int> remis = new List<int>();
+var RemisFlag = false;
+
+for (int i=0; i<employees.Count; i++)
 {
-    Console.WriteLine(i + " => " + counter[i]);
+    if (employees[i].ScoreSum == Score && i!=TopRated)
+    {
+        RemisFlag = true;
+        remis.Add(i);
+    }
+
 }
 
+if (!RemisFlag)
+{
+    Console.WriteLine("wygrywa pracownik nr: " + TopRated + " z wynikiem " + Score + " punktów");
+    Console.WriteLine("Dane pracownika z najwyższym wynikiem:");
+    Console.WriteLine("Name: " + employees[TopRated].Name);
+    Console.WriteLine("Last Name: " + employees[TopRated].LastName);
+    Console.WriteLine("Age: " + employees[TopRated].Age);
+}
+
+if (RemisFlag)
+{
+    remis.Add(TopRated);
+    Console.WriteLine("z wynkiem " + Score + " punktów, wygrywają remisem pracownicy:");
+    foreach (var i in remis)
+    {
+        Console.WriteLine("Dane pracownika nr " + i + " z najwyższym wynikiem:");
+        Console.WriteLine("Name: " + employees[i].Name);
+        Console.WriteLine("Last Name: " + employees[i].LastName);
+        Console.WriteLine("Age: " + employees[i].Age);
+    }
+}
